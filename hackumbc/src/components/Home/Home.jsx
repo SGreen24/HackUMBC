@@ -1,5 +1,4 @@
 // components/Home/Home.jsx
-import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import './Home.css'; // Import CSS for styling
 
