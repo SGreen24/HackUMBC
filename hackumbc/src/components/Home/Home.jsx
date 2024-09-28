@@ -11,6 +11,10 @@ const Home = () => {
     navigate("/questionnaire"); // Navigate to the /questionnaire route
   };
 
+  const handleNavigateToProject = () => {
+    navigate("/project"); // Navigate to the /project route
+  };
+
   const handleNavigateLogout = () => {
     navigate("/");
   }
@@ -25,10 +29,15 @@ const Home = () => {
         Go to Questionnaire
       </button>
 
+      {/* Button to redirect to the Project page */}
+      <button className="project-btn" onClick={handleNavigateToProject}>
+        Go to Projects
+      </button>
+
       {/* Button to redirect to Login page*/}
-      <button className="bg-green-500 text-white px-8 py-1 rounded-lg hover:bg-green-600" onClick={handleNavigateLogout}
+      <button className="logout-btn" onClick={handleNavigateLogout}
     >
-      <FaArrowAltCircleLeft size="24" className="mr-6" />
+      <FaArrowAltCircleLeft style={{ marginRight: '8px' }}/>
       Log Out
       </button>
 
