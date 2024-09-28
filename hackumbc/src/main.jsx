@@ -1,19 +1,20 @@
-// src/main.jsx
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Auth from './components/Login/Auth'; // Import Auth component
-import Home from './components/Home/Home'; // Import Home component
-import Questionnaire from './components/Questionnaire/Questionnaire'; // Import Questionnaire component
-import './index.css'; // Import global styles
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Import React Router components
+import Auth from './components/Login/Auth';
+import Home from './components/Home/Home';
+import Questionnaire from './components/Questionnaire/Questionnaire';
+import User from './components/UserQuestions/User'; // Import the User component
+import './index.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Router> {/* Wrap the app in Router for routing */}
-      <Routes> {/* Define the routes */}
-        <Route path="/" element={<Auth />} /> {/* Default path renders the Auth component */}
-        <Route path="/home" element={<Home />} /> {/* /home path renders the Home component */}
-        <Route path="/questionnaire" element={<Questionnaire />} /> {/* /questionnaire path renders the Questionnaire component */}
+    <Router>
+      <Routes>
+        <Route path="/" element={<Auth />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/questionnaire" element={<Questionnaire />} />
+        <Route path="/user" element={<User />} /> {/* Route for User.jsx */}
       </Routes>
     </Router>
   </StrictMode>

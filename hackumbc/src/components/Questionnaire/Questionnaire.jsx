@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { collection, getDocs, addDoc, doc } from "firebase/firestore";
+import { useState } from 'react';
+import { collection, addDoc } from "firebase/firestore";
 import { db, auth } from '../Config/firebase'; // Firestore configuration
 import './Questionnaire.css';
-
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 
 const Questionnaire = () => {
   const [newName, setNewName] = useState(''); // User name input
@@ -18,6 +18,8 @@ const Questionnaire = () => {
 
   const usersCollectionRef = collection(db, "Users");
   const geminiCollectionRef = collection(db, "Gemini");
+
+  const navigate = useNavigate(); // Create navigate object for redirection
 
   // Create a new user entry in Firestore
   const onSubmitUser = async () => {
@@ -43,7 +45,7 @@ const Questionnaire = () => {
     setShowTeamQuestion(true); // Show the team question
   };
 
-  // Submits the team answer and stores it in Firestore
+  // Submits the team answer, stores it in Firestore, and redirects to the User page
   const onSubmitTeam = async () => {
     try {
       await addDoc(geminiCollectionRef, {
@@ -51,6 +53,8 @@ const Questionnaire = () => {
         team_query: teamAnswer,
       });
       alert('Questionnaire data has been stored in Firestore!');
+      // Redirect to the User page after storing data
+      navigate('/user');
     } catch (err) {
       console.error(err);
     }
