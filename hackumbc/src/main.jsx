@@ -1,22 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-<<<<<<< HEAD
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Import React Router components
-import Auth from './components/Login/Auth';
-import Home from './components/Home/Home';
-import Questionnaire from './components/Questionnaire/Questionnaire';
-import User from './components/UserQuestions/User'; // Import the User component
-import './index.css';
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Auth />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/questionnaire" element={<Questionnaire />} />
-        <Route path="/user" element={<User />} /> {/* Route for User.jsx */}
-=======
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Auth from './components/Login/Auth'; // Import Auth component
 import Home from './components/Home/Home'; // Import Home component
@@ -32,7 +16,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/home" element={<Home />} /> {/* /home path renders the Home component */}
         <Route path="/questionnaire" element={<Questionnaire />} /> {/* /questionnaire path renders the Questionnaire component */}
         <Route path="/project" element={<Project />} /> {/* /questionnaire path renders the Questionnaire component */}
->>>>>>> 2de9020538a92779c73ffe47e82d7311d937cffc
+
       </Routes>
     </Router>
   </StrictMode>
