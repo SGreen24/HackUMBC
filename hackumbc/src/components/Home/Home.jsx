@@ -27,7 +27,7 @@ const Home = () => {
       </button>
 
       {/* Button to redirect to Login page*/}
-      <button className="bg-green-500 text-white px-8 py-1 rounded-lg hover:bg-green-600" onClick={handleNavigateLogout}
+      <button className="" onClick={handleNavigateLogout}
     >
       <FaArrowAltCircleLeft size="24" className="mr-6" />
       Log Out
