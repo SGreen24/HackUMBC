@@ -26,9 +26,9 @@ const Home = () => {
       </button>
 
       {/* Button to redirect to Login page*/}
-      <button className="" onClick={handleNavigateLogout}
+      <button className="logout-btn" onClick={handleNavigateLogout}
     >
-      <FaArrowAltCircleLeft size="24" className="mr-6" />
+      <FaArrowAltCircleLeft style={{ marginRight: '8px' }}/>
       Log Out
       </button>
 
