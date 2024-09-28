@@ -1,15 +1,11 @@
 import { BsArrowLeft } from "react-icons/bs";
 
-const BackButton = ({ destination = "/" }) => {
+const HomeButton = ({ destination = "/" }) => {
     return (
-        <div className="flex">
-            <Link 
-            to={destination}
-            className="bg-orange-400 px-4 py-1 rounded-lg w-fit">
-                <BsArrowLeft className="text-2xl"/>
-            </Link>
+        <div>
+            <button type="button">Click Me</button>
         </div>
     )
 }
 
-export default BackButton
+export default HomeButton

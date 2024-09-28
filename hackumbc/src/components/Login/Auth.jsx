@@ -1,3 +1,4 @@
+import HomeButton from "../HomeButton";
 // Importing the useState hook from React, which is used to manage the state of variables inside functional components.
 import { useState } from "react";
 
@@ -69,7 +70,6 @@ export const Auth = () => {
   // It returns a form where users can enter their email and password, and buttons for signing in, signing in with Google, and signing out.
   return (
     <div className="auth-container"> {/* This is a div container for the authentication form. */}
-      
       {/* Input field for the email address. */}
       {/* The `onChange` event is triggered whenever the user types something in the input field.
           We're using `setEmail` to update the `email` state variable with the value the user enters. */}
@@ -89,6 +89,7 @@ export const Auth = () => {
 
       {/* Button to trigger the `signIn` function, which signs the user in with their email and password. */}
       <button onClick={signIn}>Sign In</button>
+      <HomeButton />
 
       {/* Button to trigger the `signInWithGoogle` function, which signs the user in using Google through a popup window. */}
       <button onClick={signInWithGoogle}>Sign In With Google</button>
