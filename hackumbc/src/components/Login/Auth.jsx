@@ -7,6 +7,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import HomeButton from "../HomeButton";
 
 export const Auth = () => {
   const [email, setEmail] = useState("");
@@ -54,6 +55,7 @@ export const Auth = () => {
       <button onClick={signIn}>Sign In</button>
       <button onClick={signInWithGoogle}>Sign In With Google</button>
       <button onClick={logout}>Logout</button>
+      <HomeButton />
     </div>
   );
 };
