@@ -6,8 +6,8 @@ const HomeButton = ({ destination = "/" }) => {
         <div className="flex">
             <Link 
             to={destination}
-            className="bg-orange-400 px-4 py-1 rounded-lg w-fit">
-                <BsArrowLeft className="text-2xl"/>
+            className="bg-blue-400 px-8 py-1 rounded-lg w-fit">
+                <BsArrowLeft size="24" className="text-4xl"/>Log Out
             </Link>
         </div>
     )

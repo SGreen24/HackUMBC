@@ -2,6 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import './Home.css'; // Import CSS for styling
+import HomeButton from '../HomeButton';
 
 const Home = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
@@ -20,6 +21,7 @@ const Home = () => {
       <button className="questionnaire-btn" onClick={handleNavigateToQuestionnaire}>
         Go to Questionnaire
       </button>
+      <HomeButton/>
     </div>
   );
 };
