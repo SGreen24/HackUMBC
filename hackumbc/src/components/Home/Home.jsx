@@ -2,7 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import './Home.css'; // Import CSS for styling
-import { BsArrowLeft } from "react-icons/bs";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
 
 const Home = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
@@ -11,6 +11,10 @@ const Home = () => {
   const handleNavigateToQuestionnaire = () => {
     navigate("/questionnaire"); // Navigate to the /questionnaire route
   };
+
+  const handleNavigateLogout = () => {
+    navigate("/");
+  }
 
   return (
     <div className="home-container">
@@ -21,16 +25,14 @@ const Home = () => {
       <button className="questionnaire-btn" onClick={handleNavigateToQuestionnaire}>
         Go to Questionnaire
       </button>
-      <button
-      className="bg-green-500 text-white px-8 py-1 rounded-lg hover:bg-green-600"
-      onClick={() => {
-        // Add log-out functionality here
-        console.log("Logging out...");
-      }}
+
+      {/* Button to redirect to Login page*/}
+      <button className="bg-green-500 text-white px-8 py-1 rounded-lg hover:bg-green-600" onClick={handleNavigateLogout}
     >
-      <BsArrowLeft size="24" className="mr-2" />
+      <FaArrowAltCircleLeft size="24" className="mr-6" />
       Log Out
       </button>
+
     </div>
   );
 };
