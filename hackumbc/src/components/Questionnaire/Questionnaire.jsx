@@ -1,8 +1,8 @@
-// components/Questionnaire/Questionnaire.jsx
 import { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, doc } from "firebase/firestore";
 import { db, auth } from '../Config/firebase'; // Firestore configuration
 import './Questionnaire.css';
+
 
 const Questionnaire = () => {
   const [newName, setNewName] = useState(''); // User name input

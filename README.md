@@ -83,9 +83,8 @@ Consider integrating a domain registry via **GoDaddy** for entrepreneurs to gene
 
 ## **How to Setup**
 
-1. npm create vite@latest -> React -> Javascript
-2. cd hackumbc
-3. npm install
-4. npm run dev
+1. cd hackumbc
+2. npm install
+3. npm run dev
 
 ---
