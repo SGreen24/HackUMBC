@@ -8,6 +8,7 @@ import Questionnaire from './components/Questionnaire/Questionnaire'; // Import 
 import User from './components/UserQuestions/User'; // Import User component
 import './index.css'; // Import global styles
 
+/* The new Router */
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Router> {/* Add Router component here */}
