@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { useNavigate } from 'react-router-dom';
 import { db, auth } from "../Config/firebase";
 import './User.css';
 
@@ -15,6 +16,7 @@ const User = () => {
     task5: 0,
   });
   const [submitted, setSubmitted] = useState(false); // Submission state
+  const navigate = useNavigate();
 
   // Fetch user data based on the currently logged-in user
   const fetchUserData = async () => {
@@ -63,6 +65,7 @@ const User = () => {
         task5: `Task 5: Rate your proficiency in ${getTask5Text(userData.role)}. Value: ${taskAnswers.task5}`,
       });
       setSubmitted(true);
+      navigate('/project');
     } catch (err) {
       console.error("Error updating user tasks:", err);
     }
