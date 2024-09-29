@@ -1,0 +1,118 @@
+body {
+    background: linear-gradient(135deg, #0ea582, #3c238d);
+    height: 100vh;
+    text-align: center;
+  }
+  
+  h4 {
+    font-family: 'Playwrite DE Grund';
+    font-size: 35px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  form {
+    display: inline-block;
+    align-items: center;
+    height: 270px;
+    width: 350px;
+    margin-bottom: 170px;
+  }
+  
+  .text_area {
+    align-content: center;
+    border-radius: 22px;
+    margin-bottom: 35px;
+    width: 100%;
+    height: 64px;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  
+  .text_input {
+    margin-top: 0.6rem;
+    font-family: 'Playwrite DE Grund';
+    font-size: 16px;
+    border: none;
+    width: 80%;
+  }
+
+  .register-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers the button horizontally */
+    align-items: center; /* Centers the button vertically */
+}
+  
+  .register-btn {
+    align-items: center;
+    margin-top: 20px;
+    padding: 30px 30px;
+    font-size: 1.2rem;
+    color: white; /* Green text color */
+    background-color: #3c238d;
+    border: 2px solid #3c238d; /* Green border */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover */
+    position: relative; /* Allows positioning of the ::before element */
+    overflow: hidden; /* Ensures hover effect stays within button */
+}
+
+.register-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 255, 106, 0.2); /* Semi-transparent green overlay */
+    z-index: -1; /* Moves the effect behind the text */
+    transition: all 0.4s ease; /* Smooth transition for hover */
+    opacity: 0; /* Initially invisible */
+    transform: scale(0.8); /* Initially shrunk */
+    border-radius: 8px; /* Same rounded corners as the button */
+}
+
+.register-btn:hover::before {
+    opacity: 1; /* Make the overlay visible */
+    transform: scale(1.2); /* Slightly expand the overlay */
+}
+
+.register-btn:hover {
+    color: white; /* Change text color to white on hover */
+    border-color: #0ea582; /* Change border color to white */
+    box-shadow: 0 0 20px #0ea582, 0 0 40px #0ea582, 0 0 60px #0ea582; /* Glowing effect */
+}
+
+.register-btn:active {
+    background: radial-gradient(transparent, #0ea582); 
+    color: black; /* Black text color on click */
+}
+
+  
+  .reg {
+    display: inline-block;
+    background: #ffffff;
+    width: 434px;
+    height: 700px;
+    margin-top: 1%;
+    border-radius: 22px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  
+  .link {
+    color: #0E4579;
+    font-family: 'Montserrat light';
+    font-size: 18px;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+  }
+  
+  .error {
+    color: red;
+    font-family: 'Montserrat';
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  

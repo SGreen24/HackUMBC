@@ -1,30 +1,35 @@
 /* components/Home/Home.css */
 .home-container {
     display: flex;
+    background: radial-gradient(#0ea582, #3c238d);
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #000;
   }
   
   .home-container h1 {
-    font-size: 2.5rem;
+    font-family: 'Playwrite DE Grund';
+    font-size: 3rem;
+    font-weight: 1000;
     color: #00ff6a;
   }
   
   .home-container p {
-    font-size: 1.2rem;
-    color: #666;
+    font-family: 'Playwrite DE Grund';
+    font-size: 1rem;
+    margin-top: -1rem;
+    margin-bottom: 3rem;
+    color: #000000;
   }
   
   .questionnaire-btn {
     margin-top: 20px;
     padding: 15px 30px;
     font-size: 1.2rem;
-    color: #00ff6a;
+    color: #ffffff;
     background-color: transparent;
-    border: 2px solid #00ff6a;
+    border: 2px solid #ffffff;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -55,11 +60,12 @@
   .questionnaire-btn:hover {
     color: #fff;
     border-color: #fff;
-    box-shadow: 0 0 20px #00ff6a, 0 0 40px #00ff6a, 0 0 60px #00ff6a;
+    box-shadow: 0 0 20px #a186d2, 0 0 40px #a186d2, 0 0 60px #a186d2;
+    background-color: #6f589b;
   }
   
   .questionnaire-btn:active {
-    background-color: #00ff6a;
+    background-color: #6f589b;
     color: #000;
   }
 
@@ -67,9 +73,9 @@
     margin-top: 20px;
     padding: 15px 30px;
     font-size: 1.2rem;
-    color: #00ff6a;
+    color: #ffffff;
     background-color: transparent;
-    border: 2px solid #00ff6a;
+    border: 2px solid #ffffff;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -110,11 +116,12 @@
   
   .logout-btn {
     margin-top: 20px;
-    padding: 10px 10px;
-    font-size: 1.2rem;
-    color: #00ff6a;
+    padding: 8px 8px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #ffffff;
     background-color: transparent;
-    border: 2px solid #00ff6a;
+    border: 2px solid #ffffff;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -144,11 +151,12 @@
   
   .logout-btn:hover {
     color: #fff;
+    background-color: #ff4f4f;
     border-color: #fff;
-    box-shadow: 0 0 20px #00ff6a, 0 0 40px #00ff6a, 0 0 60px #00ff6a;
+    box-shadow: 0 0 20px #f52929, 0 0 40px #f52929, 0 0 60px #f52929;
   }
   
   .logout-btn:active {
-    background-color: #00ff6a;
+    background-color: #f52929;
     color: #000;
   }

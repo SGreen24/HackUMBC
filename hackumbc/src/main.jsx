@@ -20,7 +20,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/questionnaire" element={<Questionnaire />} />
         <Route path="/user" element={<User />} /> {/* Route for User component */}
         <Route path="/project" element={<Project />} />
-        
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   </StrictMode>

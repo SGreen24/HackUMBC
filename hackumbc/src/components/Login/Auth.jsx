@@ -6,6 +6,7 @@ import {
   signInWithPopup,
   getAuth
 } from "firebase/auth";
+import "./Login.css";
 
 export const Auth = () => {
   const [email, setEmail] = useState("");
@@ -39,20 +40,31 @@ export const Auth = () => {
   };
 
   return (
-    <div className="auth-container">
-      <input
-        type="email"
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={signIn}>Sign In</button>
-      <button onClick={signInWithGoogle}>Sign In With Google</button>
-      <button onClick={goToRegister}>Register New Account</button> {/* Redirects to Register */}
+    <div className="login">
+      <h4>Login</h4>
+      <form>
+        <div className="text_area">
+          <input
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="text_input"
+          />
+        </div>
+        <div className="text_area">
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            className="text_input"
+          />
+        </div>
+        <button onClick={signIn} className="login-btn">Sign In</button>
+      </form>
+      <div className="login-container">
+        <button onClick={signInWithGoogle} className="login-btn">Sign In With Google</button>
+        <button onClick={goToRegister} className="login-btn">Register New Account</button> {/* Redirects to Register */}
+      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import { auth } from "../Config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import "./Register.css";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -30,21 +31,41 @@ const Register = () => {
   };
 
   return (
-    <div className="auth-container">
-      <h1>Register New Account</h1>
-      <input
-        type="email"
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      {error && <p className="error">{error}</p>} {/* Display error message */}
-      <button onClick={registerNewAccount}>Register</button> {/* Register button */}
-      <button onClick={backToLogin}>Back to Login</button>
+    <div className="reg"> {/* Apply the login class for styling */}
+      <h4>Register</h4> {/* Styled to match the template */}
+      <form>
+        <div className="text_area">
+          <input
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="text_input"
+          />
+        </div>
+        <div className="text_area">
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            className="text_input"
+          />
+        </div>
+        {error && <p className="error">{error}</p>} {/* Display error message */}
+        <div className="register-container">
+          <input
+            type="button"
+            value="Register"
+            onClick={registerNewAccount}
+            className="register-btn"
+          />
+          <input 
+            type="button"
+            value="Back To Login"
+            className="register-btn" 
+            onClick={backToLogin}>
+            </input> {/* Redirect to Login */}
+        </div>
+      </form>
     </div>
   );
 };

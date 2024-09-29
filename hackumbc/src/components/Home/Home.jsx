@@ -2,6 +2,7 @@
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import './Home.css'; // Import CSS for styling
 import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { useCallback } from "react";
 
 const Home = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
@@ -21,7 +22,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <h1>Welcome to the Home Page!</h1>
+      <h1>Fintech Project Idea Manager</h1>
       <p>You have successfully logged in.</p>
 
       {/* Button to redirect to the Questionnaire page */}
