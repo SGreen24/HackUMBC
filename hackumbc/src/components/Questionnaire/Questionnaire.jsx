@@ -8,9 +8,7 @@ const Questionnaire = () => {
   const [newName, setNewName] = useState('');
   const [newRole, setNewRole] = useState('');
   const [confirmationMessage, setConfirmationMessage] = useState('');
-  const [showProjectQuestion, setShowProjectQuestion] = useState(false);
   const [showTeamQuestion, setShowTeamQuestion] = useState(false);
-  const [projectAnswer, setProjectAnswer] = useState('');
   const [teamAnswer, setTeamAnswer] = useState('');
   const [docId, setDocId] = useState(null); // Store document ID after first Firestore write
 
@@ -39,8 +37,8 @@ const Questionnaire = () => {
       setConfirmationMessage('User has been created!');
       setTimeout(() => {
         setConfirmationMessage('');
-        setShowProjectQuestion(true);
-      }, 2000);
+        setShowTeamQuestion(true); // Move to the team member question
+      }, 1500);
     } catch (err) {
       console.error("Error creating user: ", err);
     }
@@ -50,25 +48,20 @@ const Questionnaire = () => {
     setNewRole(role);
   };
 
-  const onSubmitProject = () => {
-    setShowTeamQuestion(true);
-  };
-
-  // Update the existing user document with project and team details
+  // Update the existing user document with team details
   const onSubmitTeam = async () => {
     try {
       if (!docId) return;
 
       const userRef = doc(db, "Users", docId);
 
-      // Update the Firestore document with project and team details
+      // Update the Firestore document with team details
       await setDoc(userRef, {
-        project_query: projectAnswer,
         team_query: teamAnswer,
       }, { merge: true }); // Merge the new fields into the existing document
 
       alert('Questionnaire data has been stored in Firestore!');
-      navigate('/user');
+      navigate('/ideas'); // Navigate to Ideas page after submission
     } catch (err) {
       console.error("Error storing data: ", err);
     }
@@ -76,16 +69,17 @@ const Questionnaire = () => {
 
   return (
     <div className="questionnaire-container">
-      <h1>Create New User</h1>
-      <p>Fill out the form to create a new user.</p>
+      <h1 className="fade-in">Create Your Profile</h1>
+      <p className="fade-in">Tell us a bit about yourself to get started.</p>
 
-      <div className="form-section">
+      <div className="form-section fade-in">
         <input
-          placeholder="Name..."
+          className="input-field"
+          placeholder="Enter your name..."
           onChange={(e) => setNewName(e.target.value)}
         />
-        <h2>What is your role?</h2>
-        <div className="role-buttons">
+        <h2 className="fade-in">What is your role?</h2>
+        <div className="role-buttons fade-in">
           {roles.map((role) => (
             <button
               key={role}
@@ -96,7 +90,7 @@ const Questionnaire = () => {
             </button>
           ))}
         </div>
-        <button className="submit-btn" onClick={onSubmitUser}>Submit User</button>
+        <button className="submit-btn fade-in" onClick={onSubmitUser}>Submit Role</button>
       </div>
 
       {confirmationMessage && (
@@ -105,30 +99,17 @@ const Questionnaire = () => {
         </div>
       )}
 
-      {showProjectQuestion && (
-        <div className="fade-in">
-          <h2>What do you want for your project?</h2>
-          <textarea
-            placeholder="Describe your project..."
-            value={projectAnswer}
-            onChange={(e) => setProjectAnswer(e.target.value)}
-          />
-          <button className="submit-btn" onClick={onSubmitProject}>
-            Submit Project Answer
-          </button>
-        </div>
-      )}
-
       {showTeamQuestion && (
         <div className="fade-in">
-          <h2>How many team members?</h2>
-          <textarea
-            placeholder="Number of team members..."
+          <h2>How many team members will be in your group?</h2>
+          <input
+            className="input-field"
+            placeholder="Enter the number of team members..."
             value={teamAnswer}
             onChange={(e) => setTeamAnswer(e.target.value)}
           />
-          <button className="submit-btn" onClick={onSubmitTeam}>
-            Submit Team Answer
+          <button className="submit-btn fade-in" onClick={onSubmitTeam}>
+            Submit Team Info
           </button>
         </div>
       )}

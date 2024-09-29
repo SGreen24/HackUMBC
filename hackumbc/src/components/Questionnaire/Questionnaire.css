@@ -1,108 +1,95 @@
+/* Global styles for the Questionnaire page */
+.questionnaire-container {
+  padding: 40px;
+  background: linear-gradient(135deg, #1a1c24, #262836);
+  color: white;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+}
 
-\.questionnaire-container {
-  padding: 50px;
-  max-width: 800px;
-  margin: 0 auto;
-  color: #00ff91;
-  background-color: #0e1d1d;
+.form-section {
+  margin-top: 20px;
+  transition: all 0.5s ease-in-out;
+}
+
+.input-field {
+  width: 60%;
+  padding: 10px;
+  font-size: 1.1rem;
   border-radius: 10px;
-  box-shadow: 0 0 20px #00ff91;
+  border: 1px solid #777;
+  background-color: #2d2f3e;
+  color: #ddd;
+  outline: none;
   transition: all 0.3s ease;
 }
 
-h1, h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 20px;
+.input-field:focus {
+  border-color: #0056ff;
+  background-color: #33354a;
 }
 
-p {
-  text-align: center;
-  font-size: 1.2rem;
-}
-
-/* Input styles */
-input {
-  width: 100%;
-  padding: 15px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 5px;
-  background-color: #122b2b;
-  color: white;
-  font-size: 1.2rem;
-}
-
-textarea {
-  width: 100%;
-  padding: 15px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 5px;
-  background-color: #122b2b;
-  color: white;
-  font-size: 1.2rem;
-}
-
-/* Role selection buttons */
 .role-buttons {
   display: flex;
-  justify-content: space-around;
-  margin: 20px 0;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 15px;
 }
 
 .role-btn {
   padding: 15px 30px;
-  background-color: #122b2b;
-  border: none;
-  border-radius: 5px;
+  font-size: 1.1rem;
   color: white;
+  background: #282c35;
+  border: none;
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.role-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0, 86, 255, 0.7);
+}
+
+.role-btn.selected {
+  background: #0056ff;
+  box-shadow: 0 0 20px rgba(0, 86, 255, 0.9);
+}
+
+.submit-btn {
+  margin-top: 20px;
+  padding: 15px 40px;
   font-size: 1.2rem;
+  color: white;
+  background: #1e90ff;
+  border: none;
+  border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.role-btn:hover {
-  background-color: #00ff91;
-  color: #0e1d1d;
-  box-shadow: 0 0 10px #00ff91;
-}
-
-.selected {
-  background-color: #00ff91;
-  color: #0e1d1d;
-  box-shadow: 0 0 10px #00ff91;
-}
-
-/* Submit button */
-.submit-btn {
-  width: 100%;
-  padding: 15px;
-  background-color: #00ff91;
-  border: none;
-  border-radius: 5px;
-  color: #0e1d1d;
-  font-size: 1.5rem;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: box-shadow 0.3s ease;
-}
-
 .submit-btn:hover {
-  box-shadow: 0 0 20px #00ff91;
+  background: #0056ff;
+  transform: scale(1.1);
 }
 
-/* Confirmation message */
 .confirmation-message {
-  text-align: center;
-  font-size: 1.8rem;
-  color: #00ff91;
-  margin-top: 20px;
-  animation: fade-in 2s ease-in-out forwards;
+  margin-top: 30px;
+  font-size: 1.5rem;
+  color: #4caf50;
 }
 
-/* Fade-in animation */
-@keyframes fade-in {
+.fade-in {
+  animation: fadeIn 0.7s ease-in-out;
+}
+
+@keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(-20px);
@@ -111,10 +98,4 @@ textarea {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* Fade-in class for smooth appearance */
-.fade-in {
-  animation: fade-in 1s ease-in-out forwards;
-  margin-top: 20px;
 }

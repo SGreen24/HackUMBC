@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { HexColorPicker } from "react-colorful";  // Futuristic color picker
 import { db, storage } from '../Config/firebase'; // Firebase Firestore and Storage
-import { collection, getDocs, addDoc } from 'firebase/firestore';  // Firestore functions
+import { collection, addDoc } from 'firebase/firestore';  // Firestore functions
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';  // Firebase Storage functions
 import './Project.css';  // Import the CSS for futuristic styling
 
