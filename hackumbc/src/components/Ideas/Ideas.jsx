@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { getDoc, doc, setDoc } from "firebase/firestore";
-import { db, auth, storage } from "../Config/firebase";
-import { ref, uploadBytes } from "firebase/storage";
-import jsPDF from 'jspdf';
+import { getDoc, doc, setDoc } from "firebase/firestore"; // Firestore imports
+import { db, auth, storage } from "../Config/firebase"; // Firebase and storage
+import { ref, uploadBytes } from "firebase/storage"; // Firebase storage
+import { useNavigate } from "react-router-dom";
 import "./Ideas.css";
+import jsPDF from 'jspdf'; // Adobe js for PDF generation
 
 const Ideas = () => {
   const [role, setRole] = useState(""); 
@@ -12,7 +13,8 @@ const Ideas = () => {
   const [error, setError] = useState(null); 
   const [selectedProject, setSelectedProject] = useState(null); 
   const [projectDetails, setProjectDetails] = useState({}); 
-  const [isProjectSelected, setIsProjectSelected] = useState(false);
+  const [userName, setUserName] = useState(""); // Add user name
+  const navigate = useNavigate();
 
   const fetchUserDetails = async () => {
     try {
@@ -27,7 +29,8 @@ const Ideas = () => {
       if (userDoc.exists()) {
         const userData = userDoc.data();
         setRole(userData.role); 
-        setTeamSize(Number(userData.team_query) || 0); 
+        setTeamSize(Number(userData.team_query) || 0);
+        setUserName(userData.name); // Set user name from Firestore
       } else {
         setError("No user data found");
       }
@@ -39,7 +42,7 @@ const Ideas = () => {
   };
 
   useEffect(() => {
-    fetchUserDetails(); 
+    fetchUserDetails();
   }, []);
 
   const goToProject = async (projectName) => {
@@ -47,20 +50,23 @@ const Ideas = () => {
     const teammates = getTeammatesForProject(projectName);
     const stories = getUserStories(projectName);
 
-    const projectInfo = {
+    setProjectDetails({
       projectName,
       teammates,
       stories,
-    };
+    });
 
-    setProjectDetails(projectInfo);
-    setIsProjectSelected(true);
+    // Save project details in Firestore, including the user's name
+    const userId = auth.currentUser?.uid;
+    await setDoc(doc(db, "Projects", projectName), {
+      userName, // Save user name
+      projectName,
+      teammates,
+      stories,
+    });
 
-    // Automatically generate a PDF of project details
-    await generateAndSavePDF(projectName, teammates, stories);
-
-    // Save project details to Firestore
-    await saveProjectToFirestore(projectInfo);
+    // Automatically generate a PDF of project details and store it in Firebase
+    generateAndSavePDF(projectName, teammates, stories);
   };
 
   const getTeammatesForProject = (project) => {
@@ -84,83 +90,47 @@ const Ideas = () => {
   };
 
   const getUserStories = (project) => {
-    let stories = [];
-
     switch (project) {
       case "Blockchain Payment Gateway":
-        stories = [
+        return [
           "As a Blockchain Developer, I want to build a secure payment infrastructure using Ethereum.",
           "As a Security Analyst, I want to implement SSL for secure transactions.",
           "As a Payment Systems Architect, I want to ensure scalability for high transaction volumes.",
         ];
-        break;
       case "AI-driven Risk Analysis":
-        stories = [
+        return [
           "As a Data Scientist, I want to build predictive models using historical financial data.",
           "As a Quantitative Analyst, I want to ensure accurate risk predictions using statistical models.",
           "As a Risk Manager, I want to integrate the AI system into current risk management tools.",
         ];
-        break;
       case "Personal Finance Tracker":
-        stories = [
+        return [
           "As a UI/UX Developer, I want to create an intuitive dashboard for tracking expenses.",
           "As a Full Stack Developer, I want to integrate APIs to fetch real-time financial data.",
           "As a Data Analyst, I want to analyze users' financial behavior to provide recommendations.",
         ];
-        break;
       default:
-        stories = [];
+        return [];
     }
-
-    // Limit the number of user stories based on the number of teammates (max 4 stories)
-    return stories.slice(0, teamSize);
   };
 
   const generateAndSavePDF = async (projectName, teammates, stories) => {
-    const pdf = new jsPDF();
-    pdf.setFontSize(20);
-    pdf.text(`${projectName}`, 10, 10);
-    pdf.setFontSize(12);
-    pdf.text(`Teammates: ${teammates}`, 10, 30);
-    pdf.text("User Stories:", 10, 50);
+    const doc = new jsPDF();
+    doc.setFontSize(20);
+    doc.text(`${projectName}`, 10, 10);
+    doc.setFontSize(12);
+    doc.text(`User: ${userName}`, 10, 30); // Add user name in PDF
+    doc.text(`Teammates: ${teammates}`, 10, 40);
+    doc.text("User Stories:", 10, 50);
     stories.forEach((story, index) => {
-      pdf.text(`${index + 1}. ${story}`, 10, 60 + index * 10);
+      doc.text(`${index + 1}. ${story}`, 10, 60 + index * 10);
     });
 
-    const pdfBlob = pdf.output('blob');
+    const pdfBlob = doc.output('blob');
     const userId = auth.currentUser?.uid;
     const pdfRef = ref(storage, `projects/${userId}/${projectName}.pdf`);
     await uploadBytes(pdfRef, pdfBlob);
   };
-
-  const saveProjectToFirestore = async (projectInfo) => {
-    const userId = auth.currentUser?.uid;
-
-    if (userId) {
-      const projectDocRef = doc(db, "Projects", userId);
-
-      try {
-        await setDoc(projectDocRef, {
-          projectName: projectInfo.projectName,
-          teammates: projectInfo.teammates,
-          userStories: projectInfo.stories,
-          userId: userId,
-        });
-
-        console.log("Project saved successfully to Firestore.");
-      } catch (err) {
-        console.error("Error saving project to Firestore: ", err);
-      }
-    }
-  };
-
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
-
-  if (error) {
-    return <h2>{error}</h2>;
-  }
 
   const renderProjectsForRole = () => {
     const projects = [];
@@ -197,6 +167,16 @@ const Ideas = () => {
     );
   };
 
+  const handleGeneratePDFClick = () => {
+    if (projectDetails) {
+      generateAndSavePDF(
+        projectDetails.projectName,
+        projectDetails.teammates,
+        projectDetails.stories
+      );
+    }
+  };
+
   return (
     <div className="ideas-page">
       <h1 className="ideas-title">Recommended Fintech Project Ideas</h1>
@@ -204,9 +184,10 @@ const Ideas = () => {
 
       {renderProjectsForRole()}
 
-      {isProjectSelected && selectedProject && (
+      {selectedProject && (
         <div className="project-details fade-in">
           <h2>{projectDetails.projectName}</h2>
+          <p>User: {userName}</p>
           <p>Potential Teammates: {projectDetails.teammates}</p>
           <h3>Sample User Stories</h3>
           <ul>
@@ -214,6 +195,9 @@ const Ideas = () => {
               <li key={index}>{story}</li>
             ))}
           </ul>
+          <button onClick={handleGeneratePDFClick} className="generate-pdf-btn">
+            Generate Project as PDF
+          </button>
         </div>
       )}
 
