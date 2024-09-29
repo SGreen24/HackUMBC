@@ -1,70 +1,194 @@
-/* Global styles for the Ideas page */
+/* Background galaxy animation */
 .ideas-page {
-    text-align: center;
-    padding: 40px;
-    background: linear-gradient(135deg, #1e1f29, #2b2e3b);
-    height: 100vh;
-    color: white;
-  }
-  
-  .ideas-title {
-    font-size: 2.5rem;
-    color: #ffffff;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-  
-  .ideas-subtitle {
-    font-size: 1.2rem;
-    color: #b5b5b5;
-    margin-bottom: 40px;
-  }
-  
-  .projects-container {
+    min-height: 100vh;
+    background: black;
+    background-image: url('/Users/silas_green/HackUMBC/hackumbc/public/star.svg');
+    background-size: cover;
+    animation: galaxyAnimation 30s infinite linear;
+    color: #fff;
     display: flex;
-    justify-content: space-around;
-    gap: 20px;
-  }
-  
-  .project-button {
-    background-color: #1e1f29;
-    border: 2px solid #fff;
-    border-radius: 15px;
-    padding: 20px;
-    width: 250px;
-    height: 150px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 1.2rem;
-    color: #ffffff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .project-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7);
-  }
-  
-  .glowing-button {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    overflow: hidden;
     position: relative;
   }
   
-  .glowing-button::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: linear-gradient(45deg, rgba(255, 0, 150, 0.3), rgba(0, 205, 255, 0.3));
-    filter: blur(10px);
-    border-radius: 15px;
-    z-index: -1;
+  /* Shooting Star Animation */
+  @keyframes shootingStar {
+    0% {
+      transform: translate(0, 0) scale(0.3);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(1000px, 500px) scale(0.1);
+      opacity: 0;
+    }
   }
   
-  .footer {
-    margin-top: 50px;
-    font-size: 1rem;
-    color: #b5b5b5;
+  .shooting-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: white;
+    box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: shootingStar 1s ease-out infinite;
   }
+  
+  /* Create multiple shooting stars at various positions */
+  .shooting-star:nth-child(1) { top: 20%; left: 15%; animation-delay: 0.3s; }
+  .shooting-star:nth-child(2) { top: 30%; left: 25%; animation-delay: 1s; }
+  .shooting-star:nth-child(3) { top: 50%; left: 40%; animation-delay: 1.5s; }
+  .shooting-star:nth-child(4) { top: 70%; left: 60%; animation-delay: 2.2s; }
+  .shooting-star:nth-child(5) { top: 80%; left: 80%; animation-delay: 0.9s; }
+  
+  /* Galaxy background movement */
+  @keyframes galaxyAnimation {
+    0% { background-position: 0 0; }
+    100% { background-position: 1000px 1000px; }
+  }
+  
+  /* Project Container */
+  .projects-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Ensures even space between projects */
+    gap: 30px;
+    margin-top: 40px;
+  }
+  
+  /* Project Cards */
+  .project-card {
+    background-color: rgba(50, 50, 70, 0.9);
+    color: white;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 20px;
+    width: 320px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.7s ease;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  }
+  
+  .project-card.hover {
+    background-color: rgba(80, 80, 120, 0.9);
+    border: 2px solid #fff;
+    transform: scale(1.15);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 50px rgba(255, 255, 255, 0.5);
+    z-index: 2;
+  }
+  
+  /* Subtle glowing effect */
+  .glowing-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  
+  .project-card:hover::before {
+    opacity: 1;
+  }
+  
+  .project-info h3 {
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  /* Teammates Fade-in */
+  .fade-in-teammates {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    text-align: center;
+    color: #00d1ff;
+    margin-top: 10px;
+    font-size: 1.2rem;
+  }
+  
+  .project-card.hover .fade-in-teammates {
+    opacity: 1;
+  }
+  
+  /* Page Title */
+  .ideas-title {
+    font-size: 3.5rem;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #00d1ff, #ff0051, #00d1ff);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-flow 8s ease infinite;
+  }
+  
+  @keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* Subtitle */
+  .ideas-subtitle {
+    font-size: 1.6rem;
+    margin-bottom: 50px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  /* Footer */
+  .footer {
+    position: fixed;
+    bottom: 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.2rem;
+    animation: footerFade 2s ease-in-out;
+  }
+  
+  /* Footer fade-in */
+  @keyframes footerFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Small star (smaller than original) */
+  @keyframes shootingStarSmall {
+    0% {
+      transform: translate(0, 0) scale(0.1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(600px, 300px) scale(0.05);
+      opacity: 0;
+    }
+  }
+  
+  /* Separate Stars */
+  .shooting-star-small {
+    position: absolute;
+    width: 1.5px;
+    height: 1.5px;
+    background-color: white;
+    box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: shootingStarSmall 0.7s ease-out infinite;
+  }
+  
+  .shooting-star-small:nth-child(1) { top: 30%; left: 15%; animation-delay: 0.2s; }
+  .shooting-star-small:nth-child(2) { top: 40%; left: 25%; animation-delay: 0.8s; }
+  .shooting-star-small:nth-child(3) { top: 60%; left: 35%; animation-delay: 1.3s; }
   
