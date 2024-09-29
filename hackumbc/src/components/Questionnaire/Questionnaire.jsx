@@ -21,6 +21,9 @@ const Questionnaire = () => {
 
   const navigate = useNavigate(); // Create navigate object for redirection
 
+  // List of roles with buttons
+  const roles = ['Data Analyst', 'Project Manager', 'Database Admin', 'Business Analyst', 'Software Engineer'];
+
   // Create a new user entry in Firestore
   const onSubmitUser = async () => {
     try {
@@ -38,6 +41,11 @@ const Questionnaire = () => {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  // Function to handle role selection
+  const selectRole = (role) => {
+    setNewRole(role);
   };
 
   // Submits the project questionnaire
@@ -71,10 +79,20 @@ const Questionnaire = () => {
           placeholder="Name..."
           onChange={(e) => setNewName(e.target.value)} // Set the new user's name
         />
-        <input
-          placeholder="Role..."
-          onChange={(e) => setNewRole(e.target.value)} // Set the new user's role
-        />
+
+        <h2>What is your role?</h2>
+        <div className="role-buttons">
+          {roles.map((role) => (
+            <button
+              key={role}
+              className={`role-btn ${newRole === role ? 'selected' : ''}`}
+              onClick={() => selectRole(role)}
+            >
+              {role}
+            </button>
+          ))}
+        </div>
+
         <input
           placeholder="Skills (comma separated)..."
           onChange={(e) => setNewSkills(e.target.value)} // Set the new user's skills
