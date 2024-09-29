@@ -1,70 +1,127 @@
-/* components/Login/Login.css */
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap'); /* Modern and clean Poppins font */
 
-button, input {
-  font-family: 'Playwrite DE Grund'; /* Applies font to headings, paragraphs, buttons, and inputs */
+/* Applies font to buttons, inputs, and headers */
+button, input, h4 {
+  font-family: 'Poppins', sans-serif;
 }
 
+/* Login container */
 .login {
-  display: inline-block;
-  background: #ffffff;
-  width: 434px;
-  height: 700px;
-  margin-top: 1%;
-  border-radius: 22px;
-  box-shadow: 0 4px 8px 0 rgba(146, 21, 21, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  }
-
-.text_area {
-  align-content: center;
-  border-radius: 22px;
-  margin-bottom: 35px;
-  height: 64px;
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.19);
-}
-  
-.text_input {
-  margin-top: 1.2rem;
-  font-family: 'Playwrite DE Grund';
-  font-size: 16px;
-  border: none;
-  width: 100%;
-  background-color: transparent;
-  color: black;
-}
-
-h4 {
-  font-family: 'Playwrite DE Grund';
-  font-size: 35px;
-  margin-top: 4rem;
-  margin-bottom: 2rem;
-}
-
-.login-container {
-  margin-top: -18%;
   display: flex;
-  justify-content: center; /* Centers the buttons horizontally */
-  align-items: center; /* Centers the buttons vertically */
-  flex-direction: column; /* Stacks buttons vertically */
-  gap: 5px; /* Adds space between buttons */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: black;
+  background-image: url('/Users/silas_green/HackUMBC/hackumbc/public/star.svg'); /* Add galaxy or space background */
+  background-size: cover;
+  background-position: center;
+  animation: galaxyAnimation 40s infinite linear;
+  color: white;
+  padding: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
-.login-btn {
+@keyframes galaxyAnimation {
+  0% { background-position: 0 0; }
+  100% { background-position: 2000px 2000px; }
+}
+
+/* Login box */
+.login-box {
+  background: rgba(30, 30, 50, 0.9);
+  border-radius: 22px;
+  padding: 30px 40px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Title */
+h4 {
+  font-size: 2.5rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #00ff6a;
+  text-align: center;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #00d1ff, #ff0051, #00d1ff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-flow 5s ease infinite;
+}
+
+@keyframes gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Input fields */
+.text_area {
+  display: flex;
+  align-items: center;
+  background: rgba(50, 50, 80, 0.5);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s;
+}
+
+.text_input {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.text_area:hover {
+  background: rgba(80, 80, 120, 0.5);
+}
+
+.text_input:focus {
+  border-bottom: 2px solid #00ff6a;
+}
+
+/* Button styles */
+button {
   padding: 15px 30px;
   font-size: 1.2rem;
   color: white;
-  background-color: #3c238d;
-  border: 2px solid #3c238d;
-  border-radius: 8px;
+  background-color: rgba(0, 255, 106, 0.2);
+  border: 2px solid transparent;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
+  width: 100%;
+  text-align: center;
   position: relative;
   overflow: hidden;
-  width: 200px; /* Sets width for the buttons */
-  text-align: center;
+  margin-bottom: 15px;
+  box-shadow: 0 0 20px rgba(0, 255, 106, 0.3), 0 0 40px rgba(0, 255, 106, 0.3);
 }
 
-.login-btn::before {
+/* Button hover effects */
+button:hover {
+  background-color: rgba(0, 255, 106, 0.4);
+  box-shadow: 0 0 20px #00ff6a, 0 0 40px #00ff6a;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: rgba(0, 255, 106, 0.7);
+  box-shadow: 0 0 30px #00ff6a;
+  color: black;
+}
+
+/* Glowing effect on buttons */
+button::before {
   content: '';
   position: absolute;
   top: 0;
@@ -76,22 +133,54 @@ h4 {
   transition: all 0.4s ease;
   opacity: 0;
   transform: scale(0.8);
-  border-radius: 8px;
+  border-radius: 12px;
 }
 
-.login-btn:hover::before {
+button:hover::before {
   opacity: 1;
   transform: scale(1.2);
 }
 
-.login-btn:hover {
-  color: white;
-  border-color: transparent;
-  background-color: #3c238d;
-  box-shadow: 0 0 20px #0ea582, 0 0 40px #0ea582, 0 0 60px #0ea582;
+/* Google Sign In button */
+.google-btn {
+  background-color: rgba(255, 165, 0, 0.2);
+  box-shadow: 0 0 20px rgba(255, 165, 0, 0.3), 0 0 40px rgba(255, 165, 0, 0.3);
 }
 
-.login-btn:active {
-  background: radial-gradient(transparent, #0ea582);
+.google-btn:hover {
+  background-color: rgba(255, 165, 0, 0.4);
+  box-shadow: 0 0 30px rgba(255, 165, 0, 0.7);
+}
+
+.google-btn:active {
+  background-color: rgba(255, 165, 0, 0.7);
+  box-shadow: 0 0 30px rgba(255, 165, 0, 0.9);
   color: black;
+}
+
+/* Register Button */
+.register-btn {
+  background-color: rgba(100, 149, 237, 0.2); /* Light blue */
+  box-shadow: 0 0 20px rgba(100, 149, 237, 0.3), 0 0 40px rgba(100, 149, 237, 0.3);
+}
+
+.register-btn:hover {
+  background-color: rgba(100, 149, 237, 0.4);
+  box-shadow: 0 0 30px rgba(100, 149, 237, 0.7);
+}
+
+.register-btn:active {
+  background-color: rgba(100, 149, 237, 0.7);
+  color: black;
+  box-shadow: 0 0 30px rgba(100, 149, 237, 0.9);
+}
+
+/* Glowing container */
+.login-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
 }

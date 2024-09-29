@@ -1,6 +1,6 @@
 /* Global styles for the Questionnaire page */
 .questionnaire-container {
-  padding: 40px;
+  padding: 50px;
   background: linear-gradient(135deg, #1a1c24, #262836);
   color: white;
   text-align: center;
@@ -13,15 +13,17 @@
 }
 
 .form-section {
-  margin-top: 20px;
+  margin-top: 30px;
   transition: all 0.5s ease-in-out;
+  width: 100%;
+  max-width: 600px;
 }
 
 .input-field {
-  width: 60%;
-  padding: 10px;
-  font-size: 1.1rem;
-  border-radius: 10px;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 15px;
   border: 1px solid #777;
   background-color: #2d2f3e;
   color: #ddd;
@@ -30,59 +32,64 @@
 }
 
 .input-field:focus {
-  border-color: #0056ff;
+  border-color: #00d1ff;
   background-color: #33354a;
+  box-shadow: 0 0 8px rgba(0, 209, 255, 0.7);
 }
 
 .role-buttons {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  gap: 15px;
+  margin-top: 30px;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .role-btn {
-  padding: 15px 30px;
-  font-size: 1.1rem;
+  padding: 15px 40px;
+  font-size: 1.2rem;
   color: white;
   background: #282c35;
   border: none;
-  border-radius: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 30px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   cursor: pointer;
 }
 
 .role-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 10px rgba(0, 86, 255, 0.7);
+  transform: scale(1.15);
+  box-shadow: 0 0 15px rgba(0, 209, 255, 0.8);
 }
 
 .role-btn.selected {
-  background: #0056ff;
-  box-shadow: 0 0 20px rgba(0, 86, 255, 0.9);
+  background: linear-gradient(135deg, #0056ff, #00d1ff);
+  box-shadow: 0 0 25px rgba(0, 209, 255, 1);
 }
 
 .submit-btn {
-  margin-top: 20px;
-  padding: 15px 40px;
-  font-size: 1.2rem;
+  margin-top: 40px;
+  padding: 15px 50px;
+  font-size: 1.3rem;
   color: white;
-  background: #1e90ff;
+  background: linear-gradient(135deg, #1e90ff, #0056ff);
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
 }
 
 .submit-btn:hover {
-  background: #0056ff;
+  background: linear-gradient(135deg, #0056ff, #1e90ff);
   transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(30, 144, 255, 0.7);
 }
 
 .confirmation-message {
   margin-top: 30px;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   color: #4caf50;
+  font-weight: bold;
+  animation: fadeIn 0.7s ease-in-out;
 }
 
 .fade-in {
@@ -97,5 +104,68 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Smooth transition on role button click */
+.role-btn.selected {
+  background: linear-gradient(135deg, #0056ff, #00d1ff);
+  box-shadow: 0 0 25px rgba(0, 209, 255, 0.9);
+  transform: scale(1.1);
+  transition: all 0.4s ease;
+}
+
+.input-field:focus {
+  border-color: #00d1ff;
+  background-color: #33354a;
+  box-shadow: 0 0 8px rgba(0, 209, 255, 0.7);
+}
+
+/* Header and title */
+.questionnaire-container h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #00d1ff, #ff0051);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-flow 8s ease infinite;
+}
+
+@keyframes gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Smooth animations for form interactions */
+.form-section {
+  opacity: 0;
+  animation: formFadeIn 1s forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes formFadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Success message styles */
+.confirmation-message {
+  font-size: 1.5rem;
+  color: #4caf50;
+  font-weight: bold;
+  animation: fadeInSuccess 0.7s ease-in-out;
+}
+
+@keyframes fadeInSuccess {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

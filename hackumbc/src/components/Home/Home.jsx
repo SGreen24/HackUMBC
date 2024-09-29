@@ -1,47 +1,41 @@
-// components/Home/Home.jsx
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
-import './Home.css'; // Import CSS for styling
+import { useNavigate } from 'react-router-dom';
+import './Home.css';
 import { FaArrowAltCircleLeft } from "react-icons/fa";
-import { useCallback } from "react";
 
 const Home = () => {
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate();
 
-  // Function to navigate to the Questionnaire page
-  const handleNavigateToQuestionnaire = () => {
-    navigate("/questionnaire"); // Navigate to the /questionnaire route
-  };
-
-  const handleNavigateToProject = () => {
-    navigate("/project"); // Navigate to the /project route
-  };
-
-  const handleNavigateLogout = () => {
-    navigate("/");
-  }
+  // Functions to handle navigation
+  const handleNavigateToQuestionnaire = () => navigate("/questionnaire");
+  const handleNavigateToProject = () => navigate("/project");
+  const handleNavigateLogout = () => navigate("/");
 
   return (
     <div className="home-container">
       <h1>Fintech Project Idea Manager</h1>
       <p>You have successfully logged in.</p>
 
-      {/* Button to redirect to the Questionnaire page */}
-      <button className="questionnaire-btn" onClick={handleNavigateToQuestionnaire}>
-        Go to Questionnaire
-      </button>
+      {/* Questionnaire button */}
+      <div className="form-section">
+        <button className="questionnaire-btn" onClick={handleNavigateToQuestionnaire}>
+          Go to Questionnaire
+        </button>
+      </div>
 
-      {/* Button to redirect to the Project page */}
-      <button className="project-btn" onClick={handleNavigateToProject}>
-        Go to Projects
-      </button>
+      {/* Projects button */}
+      <div className="form-section">
+        <button className="project-btn" onClick={handleNavigateToProject}>
+          Go to Projects
+        </button>
+      </div>
 
-      {/* Button to redirect to Login page*/}
-      <button className="logout-btn" onClick={handleNavigateLogout}
-    >
-      <FaArrowAltCircleLeft style={{ marginRight: '8px' }}/>
-      Log Out
-      </button>
-
+      {/* Logout button */}
+      <div className="form-section">
+        <button className="logout-btn" onClick={handleNavigateLogout}>
+          <FaArrowAltCircleLeft style={{ marginRight: '8px' }} />
+          Log Out
+        </button>
+      </div>
     </div>
   );
 };

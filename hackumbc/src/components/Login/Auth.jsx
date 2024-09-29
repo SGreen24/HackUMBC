@@ -4,7 +4,6 @@ import { auth, googleProvider } from "../Config/firebase";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
-  getAuth
 } from "firebase/auth";
 import "./Login.css";
 
