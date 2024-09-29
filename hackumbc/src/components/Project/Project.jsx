@@ -4,8 +4,10 @@ import { db, storage } from '../Config/firebase'; // Firebase Firestore and Stor
 import { collection, addDoc } from 'firebase/firestore';  // Firestore functions
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';  // Firebase Storage functions
 import './Project.css';  // Import the CSS for futuristic styling
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 const Project = () => {
+  const navigate = useNavigate(); // Initialize useNavigate hook
   const canvasRef = useRef(null);
   const [color, setColor] = useState('#ffffff');  // Default color
   const [brushSize, setBrushSize] = useState(10);  // Brush size for free drawing
@@ -20,6 +22,7 @@ const Project = () => {
     const state = canvas.toDataURL(); // Get current state as an image URL
     setUndoStack([...undoStack, state]);
     setRedoStack([]); // Clear the redo stack after new action
+
   };
 
   // Start drawing on the canvas
@@ -123,6 +126,11 @@ const Project = () => {
     setCursorStyle(cursorStyle);
   };
 
+  // Function to navigate to the home page
+  const handleNavigateToHome = () => {
+    navigate("/home"); // Navigate to the /home route
+  };
+
   return (
     <div className="project-page" onMouseMove={handleMouseMove}>
       <h1 className="title">FPI Board</h1>
@@ -159,8 +167,10 @@ const Project = () => {
         <button onClick={undo} className="button">Undo</button>
         <button onClick={redo} className="button">Redo</button>
         <button onClick={saveDrawing} className="button">Save Image</button>
+        <button onClick={handleNavigateToHome} className="button">Return Home</button>
       </div>
     </div>
+
   );
 };
 
