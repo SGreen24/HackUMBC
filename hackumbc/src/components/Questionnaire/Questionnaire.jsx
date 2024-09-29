@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate for redire
 const Questionnaire = () => {
   const [newName, setNewName] = useState(''); // User name input
   const [newRole, setNewRole] = useState(''); // User role input
-  const [newSkills, setNewSkills] = useState(''); // User skills input
   const [confirmationMessage, setConfirmationMessage] = useState(''); // Message after user creation
 
   const [showProjectQuestion, setShowProjectQuestion] = useState(false); // Toggle project question
   const [showTeamQuestion, setShowTeamQuestion] = useState(false); // Toggle team question
+  const [showConfirmationPage, setShowConfirmationPage] = useState(false); // Toggle confirmation page
 
   const [projectAnswer, setProjectAnswer] = useState(''); // Project description input
   const [teamAnswer, setTeamAnswer] = useState(''); // Team size input
@@ -30,7 +30,6 @@ const Questionnaire = () => {
       await addDoc(usersCollectionRef, {
         name: newName,
         role: newRole,
-        skills: newSkills,
         userId: auth?.currentUser?.uid, // Links user to currently authenticated user
       });
       setConfirmationMessage('User has been created!'); // Show confirmation message
@@ -53,10 +52,17 @@ const Questionnaire = () => {
     setShowTeamQuestion(true); // Show the team question
   };
 
-  // Submits the team answer, stores it in Firestore, and redirects to the User page
-  const onSubmitTeam = async () => {
+  // Displays the confirmation page
+  const onSubmitTeam = () => {
+    setShowConfirmationPage(true);
+  };
+
+  // Final submission of all the data to Firestore and redirection to User page
+  const onConfirmSubmit = async () => {
     try {
       await addDoc(geminiCollectionRef, {
+        name: newName,
+        role: newRole,
         project_query: projectAnswer,
         team_query: teamAnswer,
       });
@@ -92,11 +98,6 @@ const Questionnaire = () => {
             </button>
           ))}
         </div>
-
-        <input
-          placeholder="Skills (comma separated)..."
-          onChange={(e) => setNewSkills(e.target.value)} // Set the new user's skills
-        />
         <button className="submit-btn" onClick={onSubmitUser}>Submit User</button>
       </div>
 
@@ -133,6 +134,20 @@ const Questionnaire = () => {
           />
           <button className="submit-btn" onClick={onSubmitTeam}>
             Submit Team Answer
+          </button>
+        </div>
+      )}
+
+      {/* Confirmation Page */}
+      {showConfirmationPage && (
+        <div className="confirmation-page fade-in">
+          <h2>Confirm Your Information</h2>
+          <p><strong>Name:</strong> {newName}</p>
+          <p><strong>Role:</strong> {newRole}</p>
+          <p><strong>Project:</strong> {projectAnswer}</p>
+          <p><strong>Team Members:</strong> {teamAnswer}</p>
+          <button className="submit-btn" onClick={onConfirmSubmit}>
+            Confirm and Submit
           </button>
         </div>
       )}
