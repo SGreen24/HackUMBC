@@ -2,193 +2,163 @@
 .ideas-page {
     min-height: 100vh;
     background: black;
-    background-image: url('/Users/silas_green/HackUMBC/hackumbc/public/star.svg');
-    background-size: cover;
-    animation: galaxyAnimation 30s infinite linear;
+    background-image: url('/path-to-your-galaxy-image.jpg');
+    animation: galaxyAnimation 20s infinite linear;
     color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 40px;
-    overflow: hidden;
-    position: relative;
   }
   
-  /* Shooting Star Animation */
-  @keyframes shootingStar {
-    0% {
-      transform: translate(0, 0) scale(0.3);
-      opacity: 1;
-    }
-    100% {
-      transform: translate(1000px, 500px) scale(0.1);
-      opacity: 0;
-    }
-  }
-  
-  .shooting-star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background-color: white;
-    box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    animation: shootingStar 1s ease-out infinite;
-  }
-  
-  /* Create multiple shooting stars at various positions */
-  .shooting-star:nth-child(1) { top: 20%; left: 15%; animation-delay: 0.3s; }
-  .shooting-star:nth-child(2) { top: 30%; left: 25%; animation-delay: 1s; }
-  .shooting-star:nth-child(3) { top: 50%; left: 40%; animation-delay: 1.5s; }
-  .shooting-star:nth-child(4) { top: 70%; left: 60%; animation-delay: 2.2s; }
-  .shooting-star:nth-child(5) { top: 80%; left: 80%; animation-delay: 0.9s; }
-  
-  /* Galaxy background movement */
   @keyframes galaxyAnimation {
     0% { background-position: 0 0; }
     100% { background-position: 1000px 1000px; }
   }
   
-  /* Project Container */
-  .projects-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around; /* Ensures even space between projects */
-    gap: 30px;
-    margin-top: 40px;
-  }
-  
-  /* Project Cards */
-  .project-card {
-    background-color: rgba(50, 50, 70, 0.9);
-    color: white;
-    border: 2px solid transparent;
-    border-radius: 20px;
-    padding: 20px;
-    width: 320px;
-    height: 180px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.7s ease;
-    position: relative;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-  }
-  
-  .project-card.hover {
-    background-color: rgba(80, 80, 120, 0.9);
-    border: 2px solid #fff;
-    transform: scale(1.15);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 50px rgba(255, 255, 255, 0.5);
-    z-index: 2;
-  }
-  
-  /* Subtle glowing effect */
-  .glowing-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
-    border-radius: 20px;
-    opacity: 0;
-    transition: opacity 0.5s;
-  }
-  
-  .project-card:hover::before {
-    opacity: 1;
-  }
-  
-  .project-info h3 {
-    font-size: 1.6rem;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  
-  /* Teammates Fade-in */
-  .fade-in-teammates {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    text-align: center;
-    color: #00d1ff;
-    margin-top: 10px;
-    font-size: 1.2rem;
-  }
-  
-  .project-card.hover .fade-in-teammates {
-    opacity: 1;
-  }
-  
-  /* Page Title */
+  /* Title with sleek futuristic gradient animation */
   .ideas-title {
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-family: 'Orbitron', sans-serif;
-    margin-bottom: 20px;
-    background: linear-gradient(90deg, #00d1ff, #ff0051, #00d1ff);
-    background-size: 400% 400%;
+    background: linear-gradient(270deg, #00ffff, #0066ff, #ff66ff, #ffff00);
+    background-size: 600% 600%;
+    animation: gradientAnimation 8s ease infinite;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: gradient-flow 8s ease infinite;
+    margin-bottom: 20px;
   }
   
-  @keyframes gradient-flow {
+  @keyframes gradientAnimation {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
   
-  /* Subtitle */
   .ideas-subtitle {
-    font-size: 1.6rem;
-    margin-bottom: 50px;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
     text-align: center;
-    color: rgba(255, 255, 255, 0.7);
   }
   
-  /* Footer */
-  .footer {
-    position: fixed;
-    bottom: 20px;
+  /* Project container */
+  .projects-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+  
+  /* Sleek and minimalistic project card with glow effect */
+  .project-card {
+    background-color: rgba(35, 35, 55, 0.85);
+    color: white;
+    border-radius: 12px;
+    padding: 20px;
+    width: 300px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+  
+  .project-card::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background: linear-gradient(45deg, rgba(0, 255, 255, 0.5), rgba(255, 0, 255, 0.5));
+    border-radius: 20px;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  .project-card:hover::before {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  
+  .project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.5), 0px 0px 40px rgba(255, 0, 255, 0.5);
+  }
+  
+  .project-info h3 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+  
+  /* Teammates fade-in animation */
+  .fade-in-teammates {
+    opacity: 0;
+    color: #00ffcc;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .project-card:hover .fade-in-teammates {
+    opacity: 1;
+  }
+  
+  /* Detailed project information box */
+  .project-details {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 40px;
+    padding: 25px;
+    border: 2px solid #00FFFF;
+    border-radius: 20px;
+    background: rgba(45, 45, 65, 0.9);
+    animation: fadeIn 1s ease-in-out;
+    box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.3), 0px 0px 30px rgba(255, 255, 255, 0.1);
+  }
+  
+  .project-details h2 {
+    font-size: 2.2rem;
+    color: #00ffff;
+    text-align: center;
+  }
+  
+  .project-details h3 {
+    color: #00ffcc;
+    margin-top: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .project-details ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+  }
+  
+  .project-details ul li {
+    margin: 10px 0;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.2rem;
+  }
+  
+  /* Fade in animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Footer styling */
+  .footer {
+    margin-top: 60px;
     color: rgba(255, 255, 255, 0.8);
     font-size: 1.2rem;
-    animation: footerFade 2s ease-in-out;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
   }
-  
-  /* Footer fade-in */
-  @keyframes footerFade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  /* Small star (smaller than original) */
-  @keyframes shootingStarSmall {
-    0% {
-      transform: translate(0, 0) scale(0.1);
-      opacity: 1;
-    }
-    100% {
-      transform: translate(600px, 300px) scale(0.05);
-      opacity: 0;
-    }
-  }
-  
-  /* Separate Stars */
-  .shooting-star-small {
-    position: absolute;
-    width: 1.5px;
-    height: 1.5px;
-    background-color: white;
-    box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    animation: shootingStarSmall 0.7s ease-out infinite;
-  }
-  
-  .shooting-star-small:nth-child(1) { top: 30%; left: 15%; animation-delay: 0.2s; }
-  .shooting-star-small:nth-child(2) { top: 40%; left: 25%; animation-delay: 0.8s; }
-  .shooting-star-small:nth-child(3) { top: 60%; left: 35%; animation-delay: 1.3s; }
   

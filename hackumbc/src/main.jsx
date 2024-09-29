@@ -10,6 +10,7 @@ import Ideas from './components/Ideas/Ideas'; // Import Ideas component
 import Register from "./components/Register/Register";
 import './index.css'; // Import global styles
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Router>
