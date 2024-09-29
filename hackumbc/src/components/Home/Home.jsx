@@ -11,13 +11,12 @@ const Home = () => {
     navigate("/questionnaire"); // Navigate to the /questionnaire route
   };
 
-  const handleNavigateLogout = async () => {
-    try {
-      navigate("/");
-      await signOut(auth);
-    } catch (err) {
-      console.error(err);
-    }
+  const handleNavigateToProject = () => {
+    navigate("/project"); // Navigate to the /project route
+  };
+
+  const handleNavigateLogout = () => {
+    navigate("/");
   }
 
   return (
@@ -28,6 +27,11 @@ const Home = () => {
       {/* Button to redirect to the Questionnaire page */}
       <button className="questionnaire-btn" onClick={handleNavigateToQuestionnaire}>
         Go to Questionnaire
+      </button>
+
+      {/* Button to redirect to the Project page */}
+      <button className="project-btn" onClick={handleNavigateToProject}>
+        Go to Projects
       </button>
 
       {/* Button to redirect to Login page*/}
