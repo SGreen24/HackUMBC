@@ -1,67 +1,165 @@
-import { useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
-import { db, auth } from '../Config/firebase';
-import run from '../Config/gemini'; // Import the Gemini run function
-import './Project.css';
+import { useState, useRef, useEffect } from 'react';
+import { HexColorPicker } from "react-colorful";  // Futuristic color picker
+import { db, storage } from '../Config/firebase'; // Firebase Firestore and Storage
+import { collection, getDocs, addDoc } from 'firebase/firestore';  // Firestore functions
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';  // Firebase Storage functions
+import './Project.css';  // Import the CSS for futuristic styling
 
 const Project = () => {
-  // const [userData, setUserData] = useState(null); 
-  const [geminiOptions, setGeminiOptions] = useState([]); // State to store Gemini's 3 options
-  const [loading, setLoading] = useState(true); // Loading state for fetching Gemini data
-  const [error, setError] = useState(null); // Error handling state
+  const canvasRef = useRef(null);
+  const [color, setColor] = useState('#ffffff');  // Default color
+  const [brushSize, setBrushSize] = useState(10);  // Brush size for free drawing
+  const [isDrawing, setIsDrawing] = useState(false);  // Drawing state
+  const [cursorStyle, setCursorStyle] = useState({});  // Custom cursor style
+  const [undoStack, setUndoStack] = useState([]);  // Stack to store canvas states for undo
+  const [redoStack, setRedoStack] = useState([]);  // Stack to store canvas states for redo
 
-  // Fetch user data from Firebase Firestore
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userId = auth.currentUser?.uid;
-        if (!userId) return;
+  // Save the current state of the canvas for undo/redo
+  const saveCanvasState = () => {
+    const canvas = canvasRef.current;
+    const state = canvas.toDataURL(); // Get current state as an image URL
+    setUndoStack([...undoStack, state]);
+    setRedoStack([]); // Clear the redo stack after new action
+  };
 
-        const userRef = doc(db, 'Users', userId);
-        const userSnap = await getDoc(userRef);
+  // Start drawing on the canvas
+  const startDrawing = (e) => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    ctx.strokeStyle = color;
+    ctx.lineWidth = brushSize;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+    setIsDrawing(true);
+    saveCanvasState(); // Save the state before drawing begins
+  };
 
-        if (userSnap.exists()) {
-          const data = userSnap.data();
-          // setUserData(data); // Store user data in state
+  // Continue drawing on the canvas
+  const draw = (e) => {
+    if (!isDrawing) return;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+    ctx.stroke();
+  };
 
-          // Generate prompt and get response from Gemini
-          const geminiResponseOptions = await run(data);
-          setGeminiOptions(geminiResponseOptions); // Store the array of 3 options
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setError("Failed to fetch user data or communicate with Gemini.");
-      } finally {
-        setLoading(false); // Once request completes, set loading to false
-      }
+  // Stop drawing on the canvas
+  const stopDrawing = () => {
+    setIsDrawing(false);
+  };
+
+  // Undo the last drawing action
+  const undo = () => {
+    if (undoStack.length === 0) return;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    const lastState = undoStack.pop();  // Remove the last state from the undo stack
+    setRedoStack([...redoStack, canvas.toDataURL()]);  // Save the current state to redo stack
+    setUndoStack([...undoStack]);
+    
+    // Restore the canvas to the last saved state
+    const img = new Image();
+    img.src = lastState;
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
     };
+  };
 
-    fetchUserData();
-  }, []);
+  // Redo the previously undone action
+  const redo = () => {
+    if (redoStack.length === 0) return;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    const redoState = redoStack.pop();  // Remove the last state from the redo stack
+    setUndoStack([...undoStack, canvas.toDataURL()]);  // Save the current state to undo stack
+    
+    // Restore the canvas to the redo state
+    const img = new Image();
+    img.src = redoState;
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+    };
+  };
+
+  // Save the drawing to Firebase Storage and store its reference in Firestore
+  const saveDrawing = async () => {
+    const canvas = canvasRef.current;
+    const drawing = canvas.toDataURL('image/png'); // Get canvas image as data URL
+
+    // Reference to Firebase Storage
+    const storageRef = ref(storage, `drawings/${Date.now()}.png`);
+
+    // Convert the data URL to Blob
+    const blob = await (await fetch(drawing)).blob();
+
+    // Upload Blob to Firebase Storage
+    await uploadBytes(storageRef, blob);
+
+    // Get the download URL from Firebase Storage
+    const downloadURL = await getDownloadURL(storageRef);
+
+    // Save the drawing metadata to Firestore
+    await addDoc(collection(db, 'Projects'), {
+      imageUrl: downloadURL,   // URL of the saved image
+      timestamp: new Date()    // Timestamp for when the image was created
+    });
+
+    alert("Drawing saved to Firebase Storage and Firestore!");
+  };
+
+  // Set custom cursor to reflect brush size
+  const handleMouseMove = (e) => {
+    const cursorStyle = {
+      left: `${e.pageX - brushSize / 2}px`,
+      top: `${e.pageY - brushSize / 2}px`,
+      width: `${brushSize}px`,
+      height: `${brushSize}px`,
+      backgroundColor: color,
+      borderRadius: '50%',
+    };
+    setCursorStyle(cursorStyle);
+  };
 
   return (
-    <div className="project-container">
-      <h1>Project Ideas from Gemini</h1>
+    <div className="project-page" onMouseMove={handleMouseMove}>
+      <h1 className="title">FPI Board</h1>
 
-      {loading && <h2>Loading your project ideas...</h2>}
-      {error && <h2>{error}</h2>}
+      {/* Toolbar for settings */}
+      <div className="toolbar">
+        <HexColorPicker color={color} onChange={setColor} /> {/* New futuristic color picker */}
+        <input
+          type="range"
+          min="1"
+          max="50"
+          value={brushSize}
+          onChange={(e) => setBrushSize(Number(e.target.value))}
+          className="slider"
+        />
+        <label>Brush Size: {brushSize}</label>
+      </div>
 
-      {!loading && geminiOptions.length > 0 && (
-        <div className="gemini-result">
-          <h2>Gemini&apos;s Recommendations:</h2>
-          <div className="gemini-projects">
-            {geminiOptions.map((option, index) => (
-              <button key={index} className="project-idea-btn">
-                {option}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Large Canvas */}
+      <div className="drawing-container">
+        <canvas
+          ref={canvasRef}
+          width={1200}  // Increased width for larger drawing area
+          height={800}  // Increased height for larger drawing area
+          onMouseDown={startDrawing}
+          onMouseMove={draw}
+          onMouseUp={stopDrawing}
+        ></canvas>
+        <div className="cursor" style={cursorStyle}></div>
+      </div>
 
-      {!loading && geminiOptions.length === 0 && (
-        <p>No project ideas found. Try again later!</p>
-      )}
+      {/* Actions for undo/redo and saving */}
+      <div className="actions">
+        <button onClick={undo} className="button">Undo</button>
+        <button onClick={redo} className="button">Redo</button>
+        <button onClick={saveDrawing} className="button">Save Image</button>
+      </div>
     </div>
   );
 };
