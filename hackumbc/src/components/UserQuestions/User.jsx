@@ -21,7 +21,6 @@ const User = () => {
     try {
       const userId = auth.currentUser?.uid;
       if (!userId) {
-        console.error("User ID is not available");
         setError("User ID not found");
         setLoading(false);
         return;
@@ -69,91 +68,62 @@ const User = () => {
     }
   };
 
-  // Helper functions to generate task questions based on the user's role
-  const getTask1Text = (role) => {
-    switch (role) {
-      case "Software Engineer":
-        return "Data Structures";
-      case "Product Manager":
-        return "Project Management";
-      case "Database Administrator":
-        return "Database Performance";
-      case "Data Analyst":
-        return "Data Visualization";
-      case "Cybersecurity Specialist":
-        return "Security Protocols";
-      default:
-        return "Unknown Task";
-    }
+// Helper functions to generate task questions based on the user's role
+const getTask1Text = (role) => {
+  const tasks = {
+    "Software Engineer": "Data Structures",
+    "Project Manager": "Project Planning",
+    "Database Admin": "Database Performance Optimization",
+    "Data Analyst": "Data Visualization",
+    "Business Analyst": "Business Process Analysis",
   };
+  return tasks[role] || "Unknown Task";
+};
 
-  const getTask2Text = (role) => {
-    switch (role) {
-      case "Software Engineer":
-        return "Algorithms";
-      case "Product Manager":
-        return "Stakeholder Communication";
-      case "Database Administrator":
-        return "Backup and Recovery";
-      case "Data Analyst":
-        return "Statistical Analysis";
-      case "Cybersecurity Specialist":
-        return "Threat Detection";
-      default:
-        return "Unknown Task";
-    }
+const getTask2Text = (role) => {
+  const tasks = {
+    "Software Engineer": "Algorithms",
+    "Project Manager": "Stakeholder Communication",
+    "Database Admin": "Backup and Recovery Strategies",
+    "Data Analyst": "Statistical Data Analysis",
+    "Business Analyst": "Market Research and Analysis",
   };
+  return tasks[role] || "Unknown Task";
+};
 
-  const getTask3Text = (role) => {
-    switch (role) {
-      case "Software Engineer":
-        return "System Design";
-      case "Product Manager":
-        return "Risk Management";
-      case "Database Administrator":
-        return "Query Optimization";
-      case "Data Analyst":
-        return "Data Cleaning";
-      case "Cybersecurity Specialist":
-        return "Incident Response";
-      default:
-        return "Unknown Task";
-    }
+const getTask3Text = (role) => {
+  const tasks = {
+    "Software Engineer": "System Design",
+    "Project Manager": "Risk Management",
+    "Database Admin": "Query Optimization",
+    "Data Analyst": "Data Cleaning",
+    "Business Analyst": "Data Reporting",
   };
+  return tasks[role] || "Unknown Task";
+};
 
-  const getTask4Text = (role) => {
-    switch (role) {
-      case "Software Engineer":
-        return "Version Control";
-      case "Product Manager":
-        return "Product Roadmaps";
-      case "Database Administrator":
-        return "User Access Control";
-      case "Data Analyst":
-        return "Data Reporting";
-      case "Cybersecurity Specialist":
-        return "Vulnerability Assessment";
-      default:
-        return "Unknown Task";
-    }
+const getTask4Text = (role) => {
+  const tasks = {
+    "Software Engineer": "Version Control (Git)",
+    "Project Manager": "Product Roadmaps",
+    "Database Admin": "User Access Management",
+    "Data Analyst": "Data Reporting",
+    "Business Analyst": "Business Strategy Development",
   };
+  return tasks[role] || "Unknown Task";
+};
 
-  const getTask5Text = (role) => {
-    switch (role) {
-      case "Software Engineer":
-        return "Testing and Debugging";
-      case "Product Manager":
-        return "Market Research";
-      case "Database Administrator":
-        return "Data Integrity";
-      case "Data Analyst":
-        return "Predictive Modeling";
-      case "Cybersecurity Specialist":
-        return "Firewall Configuration";
-      default:
-        return "Unknown Task";
-    }
+const getTask5Text = (role) => {
+  const tasks = {
+    "Software Engineer": "Testing and Debugging",
+    "Project Manager": "Market Research",
+    "Database Admin": "Data Integrity Maintenance",
+    "Data Analyst": "Predictive Modeling",
+    "Business Analyst": "Strategic Planning",
   };
+  return tasks[role] || "Unknown Task";
+};
+
 
   // Handle response changes from buttons
   const handleRatingChange = (task, value) => {
