@@ -11,8 +11,13 @@ const Home = () => {
     navigate("/questionnaire"); // Navigate to the /questionnaire route
   };
 
-  const handleNavigateLogout = () => {
-    navigate("/");
+  const handleNavigateLogout = async () => {
+    try {
+      navigate("/");
+      await signOut(auth);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
